@@ -4,7 +4,8 @@ import { FastifyPluginAsync } from "fastify";
 
 declare module "fastify" {
   interface FastifyInstance {
-    pipeline: TranslationPipeline;
+    arabic_pipline: TranslationPipeline;
+    english_pipeline?: TranslationPipeline;
   }
 }
 
@@ -13,7 +14,10 @@ const prismaPlugin: FastifyPluginAsync = fp(async (server, options) => {
   env.localModelPath = process.env.LOCAL_MODEL_PATH!;
   env.allowRemoteModels = false;
   const translator = await pipeline("translation", process.env.MODEL_NAME!);
-  server.decorate("pipeline", translator);
+  if (process.env.MODEL_NAME_EN) {
+    server.decorate("english_pipeline", await pipeline("translation", process.env.MODEL_NAME_EN));
+  }
+  server.decorate("arabic_pipline", translator);
 });
 
 export default prismaPlugin;
