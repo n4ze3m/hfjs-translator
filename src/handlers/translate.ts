@@ -24,7 +24,7 @@ export const translateHandler = async (
           let text = translated_text[0]?.translation_text || "";
           text = text.trim();
           text = text.endsWith(".") ? text.slice(0, -1) : text;
-          text = text.startWith(".") ? text.slice(1) : text;
+          text = text.startsWith(".") ? text.slice(1) : text;
           return {
             //@ts-ignore
             translated_text: text,
@@ -51,7 +51,7 @@ export const translateHandler = async (
           let text = translated_text[0]?.translation_text || "";
           text = text.trim();
           text = text.endsWith(".") ? text.slice(0, -1) : text;
-          text = text.startWith(".") ? text.slice(1) : text;
+          text = text.startsWith(".") ? text.slice(1) : text;
           return {
             //@ts-ignore
             translated_text: text,
