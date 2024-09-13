@@ -20,9 +20,14 @@ export const translateHandler = async (
 
       if (Array.isArray(translated_text)) {
         if (translated_text.length > 0) {
+          //@ts-ignore
+          let text = translated_text[0]?.translation_text || "";
+          text = text.trim();
+          text = text.endsWith(".") ? text.slice(0, -1) : text;
+          text = text.startWith(".") ? text.slice(1) : text;
           return {
             //@ts-ignore
-            translated_text: translated_text[0]?.translation_text,
+            translated_text: text,
           };
         }
       }
